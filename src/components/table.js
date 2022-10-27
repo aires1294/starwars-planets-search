@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import AppContext from '../context/appContext';
 
 export default function Table() {
-  const { data } = useContext(AppContext);
+  const { data, name } = useContext(AppContext);
   console.log();
   return (
     <table>
+      {/* <input data-testid="name-filter" type="text" /> */}
+      {/* Planet */}
       <thread>
         <tr>
           <th>Name</th>
@@ -24,23 +26,24 @@ export default function Table() {
         </tr>
       </thread>
       <tbody>
-        {data.map((e) => (
-          <tr key={ e.name }>
-            <td>{e.name}</td>
-            <td>{e.rotation_period}</td>
-            <td>{e.orbital_period}</td>
-            <td>{e.diameter}</td>
-            <td>{e.climate}</td>
-            <td>{e.gravity}</td>
-            <td>{e.terrain}</td>
-            <td>{e.surface_water}</td>
-            <td>{e.population}</td>
-            <td>{e.films}</td>
-            <td>{e.created}</td>
-            <td>{e.edited}</td>
-            <td>{e.url}</td>
-          </tr>
-        ))}
+        {data?.filter((el) => el.name.toUpperCase().includes(name.toUpperCase()))
+          .map((e) => (
+            <tr key={ e.name }>
+              <td>{e.name}</td>
+              <td>{e.rotation_period}</td>
+              <td>{e.orbital_period}</td>
+              <td>{e.diameter}</td>
+              <td>{e.climate}</td>
+              <td>{e.gravity}</td>
+              <td>{e.terrain}</td>
+              <td>{e.surface_water}</td>
+              <td>{e.population}</td>
+              <td>{e.films.length}</td>
+              <td>{e.created}</td>
+              <td>{e.edited}</td>
+              <td>{e.url}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
