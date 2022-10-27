@@ -1,28 +1,7 @@
-// import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// import App from '../App';
-// import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
-
-// test('Testando os itens da coluna', () => {
-//   render(<App />);
-//   const name = screen.getByText(/Name/i);
-//   const rotationPeriod = screen.getByText(/Rotation Period/i);
-//   const orbitalPeriod = screen.getByText(/Orbitation Period/i);
-//   const diameter = screen.getByText(/Diameter/i);
-//   const climate = screen.getByText(/Climate/i)
-
-
-
-//   expect(name).toBeInTheDocument();
-//   expect(rotationPeriod).toBeInTheDocument();
-//   expect(orbitalPeriod).toBeInTheDocument();
-//   expect(diameter).toBeInTheDocument();
-//   expect(climate).toBeInTheDocument();
-// });
 
 
 test('Testando app provider', () => {
@@ -38,10 +17,22 @@ test('Testando app provider', () => {
 
   userEvent.selectOptions(collumnFilter, 'population');
   userEvent.selectOptions(comparisonFilter, 'maior que');
+  userEvent.type(valueFilter, '20000');
+  userEvent.click(buttonFilter);
+
+  userEvent.selectOptions(collumnFilter, 'orbital_period');
   userEvent.selectOptions(comparisonFilter, 'menor que');
+  userEvent.type(valueFilter, '20000');
+  userEvent.click(buttonFilter);
+
+  userEvent.selectOptions(collumnFilter, 'diameter');
   userEvent.selectOptions(comparisonFilter, 'igual a');
   userEvent.type(valueFilter, '20000');
   userEvent.click(buttonFilter);
 
+  // userEvent.selectOptions(collumnFilter, 'rotation_period');
+  // userEvent.selectOptions(collumnFilter, 'surface_water');
+  
+  
 
 });
