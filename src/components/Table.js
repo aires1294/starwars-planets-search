@@ -3,7 +3,7 @@ import AppContext from '../context/appContext';
 
 export default function Table() {
   const { data, name } = useContext(AppContext);
-  console.log();
+  // console.log();
   return (
     <table>
       <thead>

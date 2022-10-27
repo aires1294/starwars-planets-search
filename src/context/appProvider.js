@@ -9,7 +9,7 @@ function AppProvider({ children }) {
   const [data, setData] = useState([]);
   const [name, setName] = useState('');
   const [column, setColumn] = useState(columnArray);
-  const [columnFilter, setcolumnFilter] = useState(columnArray[0]);
+  const [columnFilter, setcolumnFilter] = useState(column[0]);
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
 
@@ -32,17 +32,20 @@ function AppProvider({ children }) {
   const handleFilter = useCallback(() => {
     if (comparisonFilter.includes('maior que')) {
       const filtered = data.filter((e) => Number(e[columnFilter]) > Number(valueFilter));
+      setColumn(column.filter((e) => e !== columnFilter));
       setData(filtered);
     } else if (comparisonFilter.includes('menor que')) {
       const filtered = data.filter((e) => Number(e[columnFilter]) < Number(valueFilter));
+      setColumn(column.filter((e) => e !== columnFilter));
       setData(filtered);
       console.log('entrou no menor');
     } else if (comparisonFilter.includes('igual a')) {
       const filtered = data
         .filter((e) => Number(e[columnFilter]) === Number(valueFilter));
+      setColumn(column.filter((e) => e !== columnFilter));
       setData(filtered);
     }
-  }, [columnFilter, data, valueFilter, comparisonFilter]);
+  }, [columnFilter, data, valueFilter, comparisonFilter, column]);
 
   useEffect(() => {
     const requestApi = async () => {
