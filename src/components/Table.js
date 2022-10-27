@@ -6,9 +6,7 @@ export default function Table() {
   console.log();
   return (
     <table>
-      {/* <input data-testid="name-filter" type="text" /> */}
-      {/* Planet */}
-      <thread>
+      <thead>
         <tr>
           <th>Name</th>
           <th>Rotation Period</th>
@@ -24,7 +22,7 @@ export default function Table() {
           <th>Edited</th>
           <th>Url</th>
         </tr>
-      </thread>
+      </thead>
       <tbody>
         {data?.filter((el) => el.name.toUpperCase().includes(name.toUpperCase()))
           .map((e) => (

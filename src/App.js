@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import AppProvider from './context/appProvider';
-import Table from './components/table';
+import Table from './components/Table';
 import Forms from './components/Forms';
 
 function App() {

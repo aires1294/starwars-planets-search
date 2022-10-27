@@ -1,31 +1,48 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './appContext';
 
-// const INITIAL_STATE = { nome: 'x', idade: 100 };
+const columnArray = [
+  'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 
 function AppProvider({ children }) {
   const [data, setData] = useState([]);
   const [name, setName] = useState('');
-
-  // <tr key={ data.name }>
-  // <td>{e.name}</td>
-  // <td>{e.rotation_period}</td>
-  // <td>{e.orbital_period}</td>
-  // <td>{e.diameter}</td>
-  // <td>{e.climate}</td>
-  // <td>{e.gravity}</td>
-  // <td>{e.terrain}</td>
-  // <td>{e.surface_water}</td>
-  // <td>{e.population}</td>
-  // <td>{e.films}</td>
-  // <td>{e.created}</td>
-  // <td>{e.edited}</td>
-  // <td>{e.url}</td>
+  const [column, setColumn] = useState(columnArray);
+  const [columnFilter, setcolumnFilter] = useState(columnArray[0]);
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
 
   const handleName = ({ target }) => {
     setName(target.value);
   };
+
+  const handleColumnFilter = ({ target }) => {
+    setcolumnFilter(target.value);
+  };
+
+  const handleComparisonFilter = ({ target }) => {
+    setComparisonFilter(target.value);
+  };
+
+  const handleValue = ({ target }) => {
+    setValueFilter(target.value);
+  };
+
+  const handleFilter = useCallback(() => {
+    if (comparisonFilter.includes('maior que')) {
+      const filtered = data.filter((e) => Number(e[columnFilter]) > Number(valueFilter));
+      setData(filtered);
+    } else if (comparisonFilter.includes('menor que')) {
+      const filtered = data.filter((e) => Number(e[columnFilter]) < Number(valueFilter));
+      setData(filtered);
+      console.log('entrou no menor');
+    } else if (comparisonFilter.includes('igual a')) {
+      const filtered = data
+        .filter((e) => Number(e[columnFilter]) === Number(valueFilter));
+      setData(filtered);
+    }
+  }, [columnFilter, data, valueFilter, comparisonFilter]);
 
   useEffect(() => {
     const requestApi = async () => {
@@ -40,8 +57,23 @@ function AppProvider({ children }) {
     requestApi();
   }, []);
 
-  const contexto = useMemo(() => ({
-    data, name, handleName }), [data, name]);
+  const contexto = useMemo(
+    () => ({
+      data,
+      name,
+      column,
+      columnFilter,
+      comparisonFilter,
+      valueFilter,
+      setColumn,
+      handleName,
+      handleColumnFilter,
+      handleComparisonFilter,
+      handleValue,
+      handleFilter,
+    }),
+    [data, name, column, columnFilter, comparisonFilter, valueFilter, handleFilter],
+  );
 
   return <AppContext.Provider value={ contexto }>{children}</AppContext.Provider>;
 }
