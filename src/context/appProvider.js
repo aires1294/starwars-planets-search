@@ -11,7 +11,7 @@ function AppProvider({ children }) {
   const [column, setColumn] = useState(columnArray);
   const [columnFilter, setcolumnFilter] = useState(columnArray[0]);
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
-  const [valueFilter, setValueFilter] = useState(0);
+  const [valueFilter, setValueFilter] = useState(0); // valor
 
   const handleName = ({ target }) => {
     setName(target.value);
